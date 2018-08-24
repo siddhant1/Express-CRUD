@@ -1,14 +1,40 @@
 import React from "react";
 import auth from "../auth";
 import { Redirect } from "react-router-dom";
+import Spinner from "./spinner";
 export class Login extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       redirectToDashboard: false,
       email: "",
-      password: ""
+      password: "",
+      spinner: false
     };
+  }
+  componentDidMount() {
+    this.setState(current => {
+      return {
+        ...current,
+        spinner: true
+      };
+    });
+    auth.checkSignIn(
+      () => {
+        this.setState({
+          redirectToDashboard: true,
+          spinner: false
+        });
+      },
+      () => {
+        this.setState(current => {
+          return {
+            ...current,
+            spinner: false
+          };
+        });
+      }
+    );
   }
   login = () => {
     auth.authenticate(
@@ -47,8 +73,11 @@ export class Login extends React.Component {
     });
   };
   render() {
+    if (this.state.spinner) {
+      return <Spinner />;
+    }
     if (this.state.redirectToDashboard) {
-      return <Redirect to="dashboard" />;
+      return <Redirect to="/" />;
     }
     return (
       <div className="form-group">

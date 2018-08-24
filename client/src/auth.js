@@ -24,6 +24,12 @@ const auth = {
     localStorage.removeItem("token");
     this.isAuthenticated = false;
     cb();
+  },
+  checkSignIn(cb) {
+    this.isAuthenticated = true;
+    setTimeout(() => {
+      cb();
+    }, 4000);
   }
 };
 export default auth;

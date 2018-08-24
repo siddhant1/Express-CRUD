@@ -1,24 +1,15 @@
 import React from "react";
-import auth from "../auth";
-import PrivateRoute from "./privateRoute";
 import { Route, Switch } from "react-router-dom";
 import { Login } from "./login";
-import Dashboard from "./dashboard";
 import Register from "./register";
-import { Redirect } from "react-router-dom";
+import Dashboard from "./dashboard";
+import PrivateRoute from "./privateRoute";
 
 class Container extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      logOut: false
-    };
   }
-
   render() {
-    if (this.state.logOut) {
-      return <Redirect to="/login" />;
-    }
     return (
       <Switch>
         <Route path="/login" component={Login} />
