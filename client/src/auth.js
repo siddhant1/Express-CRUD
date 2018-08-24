@@ -26,7 +26,6 @@ const auth = {
     cb();
   },
   checkSignIn(cb, fcb) {
-    console.log("running");
     fetch("api/user/me", {
       headers: {
         "content-type": "application/json",
