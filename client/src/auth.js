@@ -25,11 +25,25 @@ const auth = {
     this.isAuthenticated = false;
     cb();
   },
-  checkSignIn(cb) {
-    this.isAuthenticated = true;
-    setTimeout(() => {
-      cb();
-    }, 4000);
+  checkSignIn(cb, fcb) {
+    console.log("running");
+    fetch("api/user/me", {
+      headers: {
+        "content-type": "application/json",
+        "x-auth-token": localStorage.token
+      }
+    })
+      .then(res => res.json())
+      .then(res => {
+        console.log("here");
+        this.isAuthenticated = true;
+        cb();
+      })
+      .catch(err => {
+        console.log("here in checksign in catch");
+        this.isAuthenticated = false;
+        fcb();
+      });
   }
 };
 export default auth;

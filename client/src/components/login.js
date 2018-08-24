@@ -9,27 +9,25 @@ export class Login extends React.Component {
       redirectToDashboard: false,
       email: "",
       password: "",
-      spinner: false
+      spinner: true
     };
   }
   componentDidMount() {
-    this.setState(current => {
-      return {
-        ...current,
-        spinner: true
-      };
-    });
     auth.checkSignIn(
       () => {
-        this.setState({
-          redirectToDashboard: true,
-          spinner: false
+        this.setState(current => {
+          return {
+            ...current,
+            redirectToDashboard: true,
+            spinner: false
+          };
         });
       },
       () => {
         this.setState(current => {
           return {
             ...current,
+            redirectToDashboard: false,
             spinner: false
           };
         });
