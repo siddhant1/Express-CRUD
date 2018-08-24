@@ -11,12 +11,20 @@ const user = require("./Routes/user");
 const login = require("./Routes/login");
 const item = require("./Routes/item");
 //Middlewares
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept"
+  );
+  next();
+});
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(helmet());
 app.use(helmet.noCache());
-app.use(morgan("short"));
+app.use(morgan("tiny"));
 //Check Environment Variables
 if (!process.env.JWTKEY) {
   console.log("Set the private jwt key as shown in .env-example");

@@ -50,13 +50,8 @@ router.put("/:id", auth, async (req, res) => {
   res.send(item);
 });
 //DELETE CODE BLOCK
-router.delete ("/:id", auth, async (req, res) => {
-  const { error } = validate(req.body);
-  if (error) {
-    res.status(400).send(error.details[0].message);
-    return;
-  }
-  const item = await Item.findOneAndRemove(req.params.id);
+router.delete("/:id", auth, async (req, res) => {
+  const item = await Item.findByIdAndRemove(req.params.id);
   if (!item) {
     res.status(404).send("ITEM NOT FOUND");
     return;
